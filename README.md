@@ -1,5 +1,25 @@
 # Arm · 合约
 
+## English
+
+Contracts of **Arm**, a free meme-token launchpad live on Arc mainnet — https://arm.yyheart.com
+
+- **One-transaction launch**: `LaunchFactory` deploys the token (fixed 1B supply), creates a 1% Uniswap V3 pool against USDC, adds the whole supply as single-sided liquidity and locks the LP NFT in `FeeLocker` forever. Launching is free.
+- **Fee split**: the 1% pool fee is collected by `FeeLocker.distribute`, the token side is swapped to USDC, then **78% goes to the creator** (via the token's `CreatorFeeSplitter`) and 22% to `Treasury`, which settles weekly into reserve 16 / buyback 5 / dev 1.
+- **Pay-for-results referrals**: the creator can reserve 0–50% of their share for promoters. Only volume a promoter actually brought in is charged; a Keeper settles promoters daily onchain, and unsettled funds fall back to the creator after 7 days.
+- **Why Arc**: USDC is Arc's native gas and the quote asset of every pool, so launches, trades and fee payouts all settle in USDC with sub-second finality.
+
+| Contract | Mainnet address |
+|---|---|
+| LaunchFactory | `0x152deD476599f87A600Eb8A3D59a3F3b96d369BB` |
+| FeeLocker | `0x78079BEDee24Af63D2B0c05EB91aFa33425B091f` |
+| Treasury | `0x142f499969fB7DE357BB84C5aa17D8653CE43F9e` |
+| ReferralHub | `0xC8F3005C3E33a0350a4077A526e453B1BE712Ae8` |
+
+Build & test with Foundry: `forge test` (69 tests). Pools sit on the official Uniswap V3 factory on Arc (`0xf0db7b58379503491d857dB50AC9ece64c653918`), so they show up on GeckoTerminal / DexScreener automatically.
+
+## 中文
+
 Circle Arc 链（USDC 原生 gas）上的代币发射平台合约。发币即在 Uniswap V3 建 1% 池、LP 永久锁定；每笔交易 1% 池子手续费按 **78 / 16 / 5 / 1** 分给 创作者 / 储备 / 回购 / 技术团队；发币免费；创作者可开启推广分佣。
 
 | 合约 | 作用 |
